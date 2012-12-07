@@ -1,0 +1,23 @@
+#-----------------------------------------------------------------------------
+#
+# ItkCommandLineArgumentParserConfig.cmake - ItkCommandLineArgumentParser CMake configuration file for external projects.
+#
+# This file is configured by ItkCommandLineArgumentParser and used by the UseItkCommandLineArgumentParser.cmake module
+# to load ItkCommandLineArgumentParser's settings for an external project.
+#-----------------------------------------------------------------------------
+# Settings specific to the build tree.
+
+# Generate CMake lines that will define the ItkCommandLineArgumentParser_SOURCE_DIR in the ItkCommandLineArgumentParserConfig.cmake.
+
+# The library dependencies file.
+set(ItkCommandLineArgumentParser_LIBRARY_DEPENDS_FILE  @ItkCommandLineArgumentParser_BINARY_DIR_CONFIG@/ItkCommandLineArgumentParserLibraryDepends.cmake)
+
+# The "use" file.
+set(ItkCommandLineArgumentParser_USE_FILE @ItkCommandLineArgumentParser_USE_FILE_CONFIG@)
+
+# Library directory.
+set(ItkCommandLineArgumentParser_LIBRARY_DIRS_CONFIG @ItkCommandLineArgumentParser_LIBRARY_PATH@)
+
+# Include directories needed.
+set(ItkCommandLineArgumentParser_INCLUDE_DIRS @ItkCommandLineArgumentParser_INCLUDE_DIRS_CONFIG)
+

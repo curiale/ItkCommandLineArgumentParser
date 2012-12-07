@@ -1,0 +1,17 @@
+#
+# This file sets up include directories, link directories, and
+# compiler settings for a project to use ItkCommandLineArgumentParser.  It should not be
+# included directly, but rather through the ItkCommandLineArgumentParser_USE_FILE setting
+# obtained from ItkCommandLineArgumentParser.cmake.
+#
+
+# The hints point the find_package to the proper ITK
+find_package(ITK REQUIRED HINTS @ITK_DIR@)
+include(${ITK_USE_FILE})
+
+# Add include directories needed to use ItkCommandLineArgumentParser.
+include_directories(@ItkCommandLineArgumentParser_INCLUDE_DIRS_CONFIG@)
+
+# Add link directories needed to use ItkCommandLineArgumentParser.
+link_directories(@ItkCommandLineArgumentParser_LIBRARY_DIRS_CONFIG@)
+
