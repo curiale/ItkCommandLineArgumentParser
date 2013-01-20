@@ -163,22 +163,24 @@ void
 CommandLineArgumentParser
 ::PrintSelf(std::ostream & os, Indent indent) const
 {
-
-//  Superclass::PrintSelf(os, indent);
-
 	os
 	<< indent << "Command Line Arguments:"
 	<< std::endl;
 
 	for( ArgumentMapType::const_iterator it = this->m_ArgumentMap.begin(); it!=this->m_ArgumentMap.end(); ++it)
-	{
+    {
 		os << indent << it->first;
-
-		if(this->m_Argv.size() > it->second + 1 && this->m_Argv[ it->second + 1 ].substr(0,1) != "-")
-			os << ": " << this->m_Argv[it->second + 1];
-
+  
+    if(this->m_Argv.size() > it->second + 1 && this->m_Argv[ it->second + 1 ].substr(0,1) != "-")
+      {
+      os << ":";
+      for(unsigned int i=it->second +1; i<this->m_Argv.size() && this->m_Argv[i].substr(0,1) != "-";i++)
+        {
+        os << " "<< this->m_Argv[i];
+        }
+      }
 		os << std::endl;
-	}
+    }
 
 	os
 	<< indent << "----------------------"
