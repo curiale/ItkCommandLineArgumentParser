@@ -3,6 +3,9 @@
 
 #include "itkCommandLineArgumentParser.h"
 
+
+#include <ctype.h>
+
 namespace itk
 {
 
@@ -47,7 +50,9 @@ CommandLineArgumentParser
 {
   for ( IndexType i = 1; i < this->m_Argv.size(); ++i )
   {
-    if ( this->m_Argv[ i ].substr( 0, 1 ) == "-" )
+    if ( this->m_Argv[ i ].substr( 0, 1 ) == "-" &&
+        this->m_Argv[ i ].size() > 1 &&
+        !this->IsANumber( this->m_Argv[ i ].substr( 1, 2 ) ))
     {
       /** All key entries are removed, the latest is stored. */
       this->m_ArgumentMap.erase( this->m_Argv[ i ] );
@@ -169,12 +174,26 @@ CommandLineArgumentParser
 
 	for( ArgumentMapType::const_iterator it = this->m_ArgumentMap.begin(); it!=this->m_ArgumentMap.end(); ++it)
     {
-		os << indent << it->first;
+    os << indent << it->first;
   
-    if(this->m_Argv.size() > it->second + 1 && this->m_Argv[ it->second + 1 ].substr(0,1) != "-")
+    
+    unsigned int i = it->second +1;
+    
+    
+    if(this->m_Argv.size() > i &&
+       (this->m_Argv[ i ].substr(0,1) != "-" ||
+        (this->m_Argv[ i ].substr(0,1) == "-" &&
+         this->m_Argv[ i ].size() >1 &&
+         this->IsANumber(this->m_Argv[ i ].substr(1,2)))) )
       {
       os << ":";
-      for(unsigned int i=it->second +1; i<this->m_Argv.size() && this->m_Argv[i].substr(0,1) != "-";i++)
+      for(;
+          this->m_Argv.size() > i &&
+          (this->m_Argv[ i ].substr(0,1) != "-" ||
+           (this->m_Argv[ i ].substr(0,1) == "-" &&
+            this->m_Argv[ i ].size() >1 &&
+            this->IsANumber(this->m_Argv[ i ].substr(1,2))))
+          ;i++)
         {
         os << " "<< this->m_Argv[i];
         }
