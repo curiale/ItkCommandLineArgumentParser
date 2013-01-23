@@ -52,7 +52,7 @@ CommandLineArgumentParser
   {
     if ( this->m_Argv[ i ].substr( 0, 1 ) == "-" &&
         this->m_Argv[ i ].size() > 1 &&
-        !this->IsANumber( this->m_Argv[ i ].substr( 1, 2 ) ))
+        !this->IsANumber( this->m_Argv[ i ].substr( 1, 1 ) ))
     {
       /** All key entries are removed, the latest is stored. */
       this->m_ArgumentMap.erase( this->m_Argv[ i ] );
@@ -132,9 +132,9 @@ IsANumber( const std::string & arg ) const
 {
   std::string number = "0123456789";
   static const std::basic_string<char>::size_type npos = std::basic_string<char>::npos;
-  if ( arg.size() > 1 )
+  if ( arg.size() > 0 )
   {
-    if ( npos != number.find( arg.substr( 1, 1 ) ) )
+    if ( npos != number.find( arg.substr( 0, 1 ) ) )
     {
       return true;
     }
@@ -184,7 +184,7 @@ CommandLineArgumentParser
        (this->m_Argv[ i ].substr(0,1) != "-" ||
         (this->m_Argv[ i ].substr(0,1) == "-" &&
          this->m_Argv[ i ].size() >1 &&
-         this->IsANumber(this->m_Argv[ i ].substr(1,2)))) )
+         this->IsANumber(this->m_Argv[ i ].substr(1,1)))) )
       {
       os << ":";
       for(;
@@ -192,7 +192,7 @@ CommandLineArgumentParser
           (this->m_Argv[ i ].substr(0,1) != "-" ||
            (this->m_Argv[ i ].substr(0,1) == "-" &&
             this->m_Argv[ i ].size() >1 &&
-            this->IsANumber(this->m_Argv[ i ].substr(1,2))))
+            this->IsANumber(this->m_Argv[ i ].substr(1,1))))
           ;i++)
         {
         os << " "<< this->m_Argv[i];
