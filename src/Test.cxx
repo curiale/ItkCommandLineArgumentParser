@@ -25,15 +25,49 @@ int main( int argc, char *argv[] )
 
 
  /** Create a command line argument parser. **/
- itk::CommandLineArgumentParser::Pointer commandLineParser =
+ itk::CommandLineArgumentParser::Pointer parser =
      itk::CommandLineArgumentParser::New();
 
- commandLineParser->SetCommandLineArguments(argc, argv);
+ parser->SetCommandLineArguments(argc, argv);
 
 
 
  std::cout<<"Starting segmentation with the following arguments:"<<std::endl;
- commandLineParser->Print(std::cout);
+ parser->Print(std::cout);
+  
+  
+  std::string volumeFilePath = "";
+  bool ret_parser = parser->GetCommandLineArgument("--volume",volumeFilePath);
+  
+  std::vector<double> newDirection(9,0.0);
+  ret_parser = parser->GetCommandLineArgument("--newDirection",newDirection);
+  
+  
+  double direction[3][3];
+  
+  for(unsigned int i=0; i<3; i++)
+    for(unsigned int j=0; j<3; j++)
+      direction[i][j] = newDirection[3*i+j];
+  
+  
+  
+  
 
- return EXIT_SUCCESS;
+    for(unsigned int i=0; i<3; i++)
+      {
+      std::cout<<"["<<std::endl;
+      for(unsigned int j=0; j<3; j++)
+        std::cout<<direction[i][j]<<",";
+      
+      std::cout<<"]"<<std::endl;
+      
+      
+      std::cout<<"["<<std::endl;
+      for(unsigned int j=0; j<3; j++)
+        std::cout<<newDirection[3*i+j]<<",";
+      
+      std::cout<<"]"<<std::endl;
+      }
+
+  return EXIT_SUCCESS;
 }

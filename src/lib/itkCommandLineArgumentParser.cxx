@@ -102,7 +102,9 @@ CommandLineArgumentParser
       keyIndex = i;
       continue;
     }
-    if ( keyFound && this->m_Argv[ i ].substr(0,1) == "-" )
+    if ( keyFound && this->m_Argv[ i ].substr(0,1) == "-"
+        && this->m_Argv[ i ].size()>1 &&
+        !this->IsANumber( this->m_Argv[ i ].substr( 1, 1 )) )
     {
       if ( !this->IsANumber( this->m_Argv[ i ] ) )
       {
